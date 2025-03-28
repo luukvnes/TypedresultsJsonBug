@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace TestWebApp.Controllers;
 
 [ApiController]
-[Route("/cycle")]
+[Route("/")]
 public class WeatherForecastController : ControllerBase
 {
     private static readonly string[] Summaries = new[]
@@ -20,31 +20,21 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet("typedresult")]
-    public Ok<Cycle1> Get()
+    public Ok<Example> Get()
     {
-        var cycle1 = new Cycle1() { Id = 1, cycle2 = [] };
-        var cycle2 = new Cycle2() { Id = 1, cycle1 = [cycle1] };
-        cycle1.cycle2.Add(cycle2);
-        return TypedResults.Ok(cycle1);
+        var example = new Example() { Id = 1};
+        return TypedResults.Ok(example);
     }
 
     [HttpGet("result")]
-    public Cycle1 Get2()
+    public Example Get2()
     {
-        var cycle1 = new Cycle1() { Id = 1, cycle2 = [] };
-        var cycle2 = new Cycle2() { Id = 1, cycle1 = [cycle1] };
-        cycle1.cycle2.Add(cycle2);
-        return cycle1;
+        var example = new Example() { Id = 1};
+        return example;
     }
 }
 
-public class Cycle1
+public class Example
 {
     public int Id { get; set; }
-    public required List<Cycle2> cycle2 { get; set; }
-}
-public class Cycle2
-{
-    public int Id { get; set; }
-    public required List<Cycle1> cycle1 { get; set; }
 }
